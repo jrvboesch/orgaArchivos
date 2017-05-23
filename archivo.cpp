@@ -1,4 +1,5 @@
 #include "archivo.h"
+#include <iostream>
 
 using namespace std;
 
