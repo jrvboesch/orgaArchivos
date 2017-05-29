@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string.h>
 
+using namespace std;
 
 class fileEntry
 {
@@ -16,6 +17,11 @@ public:
     long size;
 
     fileEntry( char* nombre, int firstBlock, int lastBlock, int isFolder, long size );
+
+    int getFirstBLock();
+    int getLastBlock();
+    void esFolder();
+    int getSize();
 };
 
 #endif // FILEENTRY_H

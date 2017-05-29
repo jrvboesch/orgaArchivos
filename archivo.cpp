@@ -70,3 +70,4 @@ void Archivo::CreateFile( int size ){
         fclose( file );
     }
 }
+
