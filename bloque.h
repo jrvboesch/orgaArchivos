@@ -6,18 +6,18 @@
 class Bloque
 {
 public:
-
-    Bloque(char * nombre, int numB,long tamanoB,bool disp );
-    virtual long getTamanoBloque();
-    virtual int getNumBloque();
-    virtual char * getNombre();
-    virtual bool getDisponible();
-
-    virtual void initFromChar(char * d);
-    long tamanoBloque;
-    int numBloque;
-    char * nombre;
-    bool disponible;
+    int next;
+    char data[4092];
+    int blockSize;
+    Bloque();
+    void setNext( int next );
+    void setData( char* data );
+    int getNext();
+    char* getData();
+    void Cargar( Archivo* archivo, int index );
+    void Guardar( Archivo* archivo, int index );
+    void InitFromChar(char* dat );
+    char* toChar();
 };
 
 #endif // BLOQUE_H

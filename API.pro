@@ -12,11 +12,10 @@ TEMPLATE = app
 SOURCES += main.cpp \
     archivo.cpp \
     masterblock.cpp \
-    fileentry.cpp \
     discovirtual.cpp \
     api.cpp \
     bloque.cpp \
-    bloquearchivo.cpp
+    FileEntry.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -35,5 +34,4 @@ HEADERS += \
     fileentry.h \
     discovirtual.h \
     api.h \
-    bloque.h \
-    bloquearchivo.h
+    bloque.h

@@ -10,7 +10,7 @@ using namespace std;
 class fileEntry
 {
 public:
-    char* nombre;
+    char nombre[ 20 ];
     int firstBlock;
     int lastBlock;
     int isFolder;
@@ -18,10 +18,9 @@ public:
 
     fileEntry( char* nombre, int firstBlock, int lastBlock, int isFolder, long size );
 
-    int getFirstBLock();
-    int getLastBlock();
-    void esFolder();
-    int getSize();
+    void UpdateSize( int fileSize );
+    char* toChar();
+    void InitFromChar( char* data );
 };
 
 #endif // FILEENTRY_H

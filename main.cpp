@@ -6,3 +6,6 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+// 30/5/2017
+// 1pt+ por participar en clase!

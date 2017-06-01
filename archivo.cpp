@@ -18,7 +18,9 @@ void Archivo::Open(){
 }
 
 void Archivo::Close() {
-    fclose( this->fp );
+    if( this->fp != NULL ){
+        fclose( this->fp );
+    }
 }
 
 void Archivo::Write( int offset, char* data, int size ) {
@@ -35,7 +37,7 @@ char* Archivo::Read( int offset, int size ) {
 
     if( this->fp != NULL ) {
 
-        char* data =  new char[ size ];
+        char data[ size ];
 
         fseek( this->fp, offset, SEEK_SET );
 
@@ -48,26 +50,24 @@ char* Archivo::Read( int offset, int size ) {
 
 }
 
-int Archivo::device_exist() {
-    FILE *file;
+bool Archivo::device_exist() {
     if( strlen( this->path ) > 0 ) {
-        if( ( file = fopen( this->path, "r" ) ) ) {
-            fclose( file );
-            return 1;
+        if( ( this->fp = fopen( this->path, "r" ) ) ) {
+            this->Close();
+            return true;
         }
     }
 
-    return 0;
+    return false;
 }
 
 
 void Archivo::CreateFile( int size ){
-    FILE *file;
     if( strlen( this->path ) > 0 ) {
-        file = fopen( this->path, "w" );
-        fseek( file, size, SEEK_SET );
-        fputc( '\0', file );
-        fclose( file );
+        this->fp = fopen( this->path, "w" );
+        fseek( this->fp, size, SEEK_SET );
+        fputc( '\0', this->fp );
+        this->Close();
     }
 }
 

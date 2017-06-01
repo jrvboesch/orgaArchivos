@@ -14,6 +14,8 @@ public:
     MasterBlock(Archivo* archivo , int blockSize);
     void cargar();
     void guardar();
+    int GetFreeBlock();
+    char* toChar();
     void initFromChar( char* data );
 };
 

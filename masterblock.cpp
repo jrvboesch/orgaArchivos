@@ -15,28 +15,50 @@ void MasterBlock::cargar() {
 void MasterBlock::initFromChar( char *data ) {
     int pos = 0;
 
-    memcpy( &this->blockSize, &data[ pos ], 4 );
+    memcpy( &blockSize, &data[ pos ], 4 );
     pos += 4;
-    memcpy( &this->blockCount, &data[ pos ], 4 );
+    memcpy( &blockCount, &data[ pos ], 4 );
     pos += 4;
-    memcpy( &this->First_block, &data[ pos ], 4 );
+    memcpy( &First_block, &data[ pos ], 4 );
     pos += 4;
-    memcpy( &this->nextBlock, &data[  pos ], 4 );
+    memcpy( &nextBlock, &data[  pos ], 4 );
     pos += 4;
 }
 
 void MasterBlock::guardar(){
+    char data [ this->blockSize ];
+
+    this->archivo->Open();
+
+    memcpy( data, this->archivo->Read( 0, this->blockSize ), this->blockSize );
+
+    this->initFromChar( data );
+
+    this->archivo->Close();
+
+}
+
+int MasterBlock::GetFreeBlock(){
+
+    this->archivo->Open();
+
+    this->archivo->Write( 0, this->toChar(), this->blockSize );
+
+    this->archivo->Close();
+}
+
+char* MasterBlock::toChar(){
     int pos = 0;
-    char* data = new char( this->blockSize );
+    char data [ this->blockSize ];
 
-    memcpy(  &data[ pos ], &this->blockSize,4 );
+    memcpy(  &data[ pos ], &blockSize,4 );
     pos += 4;
-    memcpy(  &data[ pos ], &this->blockCount, 4 );
+    memcpy(  &data[ pos ], &blockCount, 4 );
     pos += 4;
-    memcpy(  &data[ pos ], &this->First_block, 4 );
+    memcpy(  &data[ pos ], &First_block, 4 );
     pos += 4;
-    memcpy(  &data[ pos ], &this->nextBlock, 4 );
+    memcpy(  &data[ pos ], &nextBlock, 4 );
     pos += 4;
 
-    this->archivo->Write( 0, data, this->blockSize );
+    return data;
 }
