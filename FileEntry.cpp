@@ -1,5 +1,9 @@
 #include "fileentry.h"
 
+fileEntry::fileEntry() {
+
+}
+
 fileEntry::fileEntry(char *nombre, int firstBlock, int lastBlock, int isFolder, long size) {
 
     strcpy( this->nombre, nombre );

@@ -16,6 +16,7 @@ public:
     int isFolder;
     long size;
 
+    fileEntry();
     fileEntry( char* nombre, int firstBlock, int lastBlock, int isFolder, long size );
 
     void UpdateSize( int fileSize );
