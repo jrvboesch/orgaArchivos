@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     api.cpp \
     bloque.cpp \
     FileEntry.cpp \
-    folder.cpp
+    folder.cpp \
+    shell.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -36,4 +37,5 @@ HEADERS += \
     discovirtual.h \
     api.h \
     bloque.h \
-    folder.h
+    folder.h \
+    shell.h

@@ -16,7 +16,7 @@ public:
     Bloque* block;
     fileEntry* fe;
 
-    DiscoVirtual(Archivo *archivo, int fileSize);
+    DiscoVirtual( char * nombre, int fileSize );
     void format();
     void load();
     void CreateFile(char* path, char* name , int isFolder);

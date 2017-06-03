@@ -3,6 +3,7 @@
 Bloque::Bloque()
 {
     this->blockSize = 4096;
+    this->setNext( 0 );
 }
 
 void Bloque::setNext( int next ){

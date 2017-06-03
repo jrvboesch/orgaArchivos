@@ -4,7 +4,7 @@
 using namespace std;
 
 Archivo::Archivo( char* file, int size ) {
-    strcpy( this->path, file );
+    this->path = file;
     this->fp = NULL;
     if( !this->device_exist() ){
         this->CreateFile( size );
@@ -41,7 +41,7 @@ char* Archivo::Read( int offset, int size ) {
 
         fseek( this->fp, offset, SEEK_SET );
 
-        fwrite( data, 1, size, this->fp );
+        fread( data, 1, size, this->fp );
 
         return data;
     }

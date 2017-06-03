@@ -1,15 +1,29 @@
 #include "discovirtual.h"
 
-DiscoVirtual::DiscoVirtual(Archivo* archivo, int fileSize)
+DiscoVirtual::DiscoVirtual( char * nombre, int fileSize )
 {
-   this->archivo = archivo;
+   this->archivo = new Archivo( nombre, fileSize );
    tamArch = fileSize;
+   if( !archivo->device_exist() ){
+    this->format();
+   }
+   this->load();
 }
 
 
 void DiscoVirtual::format(){
     mb = new MasterBlock(archivo, tamArch);
     mb->guardar();
+    fileEntry* fe = new fileEntry();
+    strcpy( fe->nombre, "/");
+    fe->firstBlock = 1;
+    fe->isFolder = 1;
+    fe->lastBlock = 1;
+    fe->size = 1;
+
+    Bloque* indice = new Bloque();
+    memcpy( &indice->data[0], fe->toChar(), 36 );
+    indice->Guardar( this->archivo, fe->firstBlock );
 }
 
 void DiscoVirtual::load(){
@@ -56,6 +70,7 @@ vector<fileEntry> DiscoVirtual::ls(char *path){
 }
 
 void DiscoVirtual::CreateFile( char* path, char* name, int isFolder ){
+    int test = 0;
     fileEntry *dir = this->getDir( path );
     if( dir != NULL ){
 
@@ -78,6 +93,7 @@ void DiscoVirtual::CreateFile( char* path, char* name, int isFolder ){
 
 fileEntry* DiscoVirtual::getDir( char* path ){
     Folder *f = new Folder( 1, this->archivo );
+    fileEntry root = f->dir->at( 0 );
     vector<string> p = this->parsePath( path );
     char* current;
     vector<string>::iterator pi = p.begin();
@@ -95,6 +111,9 @@ fileEntry* DiscoVirtual::getDir( char* path ){
                 return &fe;
             }
         }
+    }
+    if( p.size() == 1 ){
+        return &root;
     }
     return NULL;
 }
