@@ -2,10 +2,11 @@
 
 DiscoVirtual::DiscoVirtual( char * nombre, int fileSize )
 {
-   this->archivo = new Archivo( nombre, fileSize );
+   this->archivo = new Archivo( nombre );
    tamArch = fileSize;
    if( !archivo->device_exist() ){
-    this->format();
+       this->archivo->CreateFile( fileSize );
+       this->format();
    }
    this->load();
 }
@@ -23,7 +24,7 @@ void DiscoVirtual::format(){
 
     Bloque* indice = new Bloque();
     memcpy( &indice->data[0], fe->toChar(), 36 );
-    indice->Guardar( this->archivo, fe->firstBlock );
+    indice->Guardar( this->archivo, 1 );
 }
 
 void DiscoVirtual::load(){
@@ -92,7 +93,7 @@ void DiscoVirtual::CreateFile( char* path, char* name, int isFolder ){
 //}
 
 fileEntry* DiscoVirtual::getDir( char* path ){
-    Folder *f = new Folder( 1, this->archivo );
+    Folder *f = new Folder( 1, this->archivo );// no carga root!!
     fileEntry root = f->dir->at( 0 );
     vector<string> p = this->parsePath( path );
     char* current;

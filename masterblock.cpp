@@ -4,14 +4,19 @@ MasterBlock::MasterBlock( Archivo *archivo, int blockSize ) {
     this->blockSize = blockSize;
     this->archivo = archivo;
     this->blockCount = 0;
-    this->First_block = 2;
+    this->First_block = 1;
     this->nextBlock = 2;
 }
 
 void MasterBlock::cargar() {
+    char data [ 4096 ];
+
     this->archivo->Open();
-    char* data = this->archivo->Read( 0, this->blockSize );
+
+    memcpy( data, this->archivo->Read( 0, 4096 ), 4096 );
+
     this->initFromChar( data );
+
     this->archivo->Close();
 }
 
@@ -29,11 +34,11 @@ void MasterBlock::initFromChar( char *data ) {
 }
 
 void MasterBlock::guardar(){
-    char data [ this->blockSize ];
+    char data [ 4096 ];
 
     this->archivo->Open();
 
-    memcpy( data, this->archivo->Read( 0, this->blockSize ), this->blockSize );
+    memcpy( data, this->toChar(), 4096 );
 
     this->initFromChar( data );
 
@@ -43,16 +48,13 @@ void MasterBlock::guardar(){
 
 int MasterBlock::GetFreeBlock(){
 
-    this->archivo->Open();
+    return this->nextBlock;
 
-    this->archivo->Write( 0, this->toChar(), this->blockSize );
-
-    this->archivo->Close();
 }
 
 char* MasterBlock::toChar(){
     int pos = 0;
-    char data [ this->blockSize ];
+    char data [ 4096 ];
 
     memcpy(  &data[ pos ], &blockSize,4 );
     pos += 4;

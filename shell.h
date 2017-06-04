@@ -14,7 +14,7 @@ class shell
 public:
     DiscoVirtual *dv;
     shell();
-    void cmd( char* command );
+    void cmd(char command[] );
     void ls(char *path);
 
 };

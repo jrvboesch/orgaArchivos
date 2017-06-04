@@ -23,7 +23,7 @@ char* Bloque::getData(){
 }
 
 void Bloque::Cargar( Archivo* archivo, int index ){
-    char dat[ this->blockSize ];
+    char dat[ 4092 ];
     int offset = index * this->blockSize;
 
     archivo->Open();
@@ -35,13 +35,11 @@ void Bloque::Cargar( Archivo* archivo, int index ){
 }
 
 void Bloque::Guardar( Archivo* archivo, int index ){
-    char dat[ this->blockSize ];
+
     int offset = index * this->blockSize;
     archivo->Open();
 
-    memcpy( dat, this->toChar(), this->blockSize );
-
-    archivo->Write( offset, dat, this->blockSize );
+    archivo->Write( offset, this->toChar(), this->blockSize );
 
     archivo->Close();
 }
@@ -56,7 +54,7 @@ void Bloque::InitFromChar( char* dat ){
 
 char* Bloque::toChar(){
     int pos = 0;
-    char dat [ this->blockSize ];
+    char dat [ 4096 ];
 
     memcpy(  &dat[ pos ], &next, 4 );
     pos += 4;

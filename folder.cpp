@@ -14,13 +14,17 @@ void Folder::ls(int b){
     fileEntry *fe =  new fileEntry();
     char data[ 36 ];
     int pos = 0;
+    // hay un error en este loop!
+    memcpy( data, &blo->data[ pos ], 36 );
+    fe->InitFromChar( data );
+    pos += 36;
+    while( pos < blo->blockSize - 4 && fe->firstBlock != 0  ){
 
-    while( pos < strlen( blo->data ) ){
+        dir->push_back( *fe );
 
         memcpy( data, &blo->data[ pos ], 36 );
         fe->InitFromChar( data );
 
-        dir->push_back( *fe );
         pos += 36;
     }
     if( blo->next != 0 )

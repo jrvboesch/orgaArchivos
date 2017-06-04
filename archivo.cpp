@@ -3,12 +3,9 @@
 
 using namespace std;
 
-Archivo::Archivo( char* file, int size ) {
+Archivo::Archivo( char* file ) {
     this->path = file;
     this->fp = NULL;
-    if( !this->device_exist() ){
-        this->CreateFile( size );
-    }
 }
 
 void Archivo::Open(){
@@ -37,8 +34,7 @@ char* Archivo::Read( int offset, int size ) {
 
     if( this->fp != NULL ) {
 
-        char data[ size ];
-
+        char data[size];
         fseek( this->fp, offset, SEEK_SET );
 
         fread( data, 1, size, this->fp );

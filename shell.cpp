@@ -5,11 +5,11 @@ shell::shell()
     this->dv = new DiscoVirtual( "fs.oa", 3*1024*1024);
 }
 
-void shell::cmd( char* command ){
-    char* accion = "new";
-    char* opt1 = "folder";
-    char* opt2 = "hola";
-    char* opt3 = "/";
+void shell::cmd( char command[] ){
+    char* accion = strtok( command, "/" );
+    char* opt1 = strtok(NULL, "/");
+    char* opt2 = strtok(NULL, "/");
+    char* opt3 = strtok(NULL, "/");
     if( strcmp( accion, "new" ) == 0 ){
         if( strcmp( opt1, "folder" ) == 0 ){
             this->dv->CreateFile( opt3, opt2, 1 );
