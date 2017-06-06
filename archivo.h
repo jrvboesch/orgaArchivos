@@ -17,7 +17,7 @@ public:
     void Open();
     void Close();
     void Write( int offset, char* data, int size );
-    char* Read(int offset, int size );
+    char* Read( int offset, int size );
     bool device_exist();
     void CreateFile( int size );
 };

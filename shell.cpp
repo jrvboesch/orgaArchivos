@@ -5,11 +5,13 @@ shell::shell()
     this->dv = new DiscoVirtual( "fs.oa", 3*1024*1024);
 }
 
-void shell::cmd( char command[] ){
-    char* accion = strtok( command, "/" );
-    char* opt1 = strtok(NULL, "/");
-    char* opt2 = strtok(NULL, "/");
-    char* opt3 = strtok(NULL, "/");
+void shell::cmd( char *command ){
+    //    char* accion = strtok( command, " " );
+        char* accion = "new";
+    //    char* opt1 = strtok(NULL, " ");
+        char* opt1 = "folder";
+    char* opt2 = "hola";
+    char* opt3 = "root";
     if( strcmp( accion, "new" ) == 0 ){
         if( strcmp( opt1, "folder" ) == 0 ){
             this->dv->CreateFile( opt3, opt2, 1 );
@@ -28,6 +30,6 @@ void shell::ls( char* path ){
     cout << path << endl;
     for( vector<fileEntry>::iterator i = list.begin(); i != list.end(); ++i ){
         fileEntry fe = *i;
-        cout << path << "/" << fe.nombre << endl;
+        cout << "/" << fe.nombre << endl;
     }
 }

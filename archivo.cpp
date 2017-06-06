@@ -10,7 +10,7 @@ Archivo::Archivo( char* file ) {
 
 void Archivo::Open(){
     if( strlen( this->path ) > 0 ) {
-        this->fp = fopen( this->path, "a+" );
+        this->fp = fopen( this->path, "r+" );
     }
 }
 
@@ -34,7 +34,9 @@ char* Archivo::Read( int offset, int size ) {
 
     if( this->fp != NULL ) {
 
-        char data[size];
+        char* data;
+        data = (char*)malloc (sizeof(char)*size);
+//        data = new char( size );
         fseek( this->fp, offset, SEEK_SET );
 
         fread( data, 1, size, this->fp );

@@ -40,7 +40,7 @@ void MasterBlock::guardar(){
 
     memcpy( data, this->toChar(), 4096 );
 
-    this->initFromChar( data );
+    this->archivo->Write( 0, data, 4096);
 
     this->archivo->Close();
 

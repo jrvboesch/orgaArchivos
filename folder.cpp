@@ -1,6 +1,6 @@
 #include "folder.h"
 
-Folder::Folder(int b, Archivo *archivo)
+Folder::Folder( int b, Archivo *archivo )
 {
     this->archivo = archivo;
     this->index = b;
@@ -14,7 +14,7 @@ void Folder::ls(int b){
     fileEntry *fe =  new fileEntry();
     char data[ 36 ];
     int pos = 0;
-    // hay un error en este loop!
+
     memcpy( data, &blo->data[ pos ], 36 );
     fe->InitFromChar( data );
     pos += 36;

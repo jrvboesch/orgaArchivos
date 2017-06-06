@@ -1,6 +1,5 @@
 #ifndef DISCOVIRTUAL_H
 #define DISCOVIRTUAL_H
-#include <qstring.h>'
 #include <vector>
 #include "archivo.h"
 #include "masterblock.h"

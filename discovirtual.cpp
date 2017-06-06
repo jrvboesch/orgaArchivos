@@ -16,7 +16,7 @@ void DiscoVirtual::format(){
     mb = new MasterBlock(archivo, tamArch);
     mb->guardar();
     fileEntry* fe = new fileEntry();
-    strcpy( fe->nombre, "/");
+    strcpy( fe->nombre, "root");
     fe->firstBlock = 1;
     fe->isFolder = 1;
     fe->lastBlock = 1;
@@ -50,10 +50,10 @@ vector<string> DiscoVirtual::parsePath(char* path){
 vector<fileEntry> DiscoVirtual::ls(char *path){
     Folder *f = new Folder( 1, this->archivo );
     vector<string> p = this->parsePath( path );
-    char* current;
+    const char* current;
     vector<string>::iterator pi = p.begin();
     string pi2 = *pi;
-    strcpy( current, pi2.c_str() );
+    current = pi2.c_str();
     for( vector<fileEntry>::iterator i = f->dir->begin(); i != f->dir->end(); ++i ){
         fileEntry fe = *i;
         if( fe.isFolder == 1 && strcmp( current, fe.nombre ) == 0 ){
@@ -61,7 +61,7 @@ vector<fileEntry> DiscoVirtual::ls(char *path){
             i = f->dir->begin();
             ++pi;
             pi2 = *pi;
-            strcpy( current, pi2.c_str() );
+            current = pi2.c_str();
         }
         if( pi == p.end() ){
             break;
@@ -96,10 +96,10 @@ fileEntry* DiscoVirtual::getDir( char* path ){
     Folder *f = new Folder( 1, this->archivo );// no carga root!!
     fileEntry root = f->dir->at( 0 );
     vector<string> p = this->parsePath( path );
-    char* current;
+    const char* current;
     vector<string>::iterator pi = p.begin();
     string pi2 = *pi;
-    strcpy( current, pi2.c_str() );
+    current = pi2.c_str();
     for( vector<fileEntry>::iterator i = f->dir->begin(); i != f->dir->end(); ++i ){
         fileEntry fe = *i;
         if( fe.isFolder == 1 && strcmp( current, fe.nombre ) == 0 ){
@@ -107,7 +107,7 @@ fileEntry* DiscoVirtual::getDir( char* path ){
             i = f->dir->begin();
             ++pi;
             pi2 = *pi;
-            strcpy( current, pi2.c_str() );
+            current = pi2.c_str();
             if( pi == p.end() ){
                 return &fe;
             }
