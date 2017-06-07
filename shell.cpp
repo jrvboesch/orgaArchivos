@@ -6,11 +6,11 @@ shell::shell()
 }
 
 void shell::cmd( char *command ){
-    //    char* accion = strtok( command, " " );
-        char* accion = "new";
-    //    char* opt1 = strtok(NULL, " ");
-        char* opt1 = "folder";
-    char* opt2 = "hola";
+//    char* accion = strtok( command, " " );
+    char* accion = "ls";
+//    char* opt1 = strtok(NULL, " ");
+    char* opt1 = "root";
+    char* opt2 = "carpeta2";
     char* opt3 = "root";
     if( strcmp( accion, "new" ) == 0 ){
         if( strcmp( opt1, "folder" ) == 0 ){

@@ -17,7 +17,7 @@ void DiscoVirtual::format(){
     mb->guardar();
     fileEntry* fe = new fileEntry();
     strcpy( fe->nombre, "root");
-    fe->firstBlock = 1;
+    fe->firstBlock = 2;
     fe->isFolder = 1;
     fe->lastBlock = 1;
     fe->size = 1;
@@ -48,20 +48,28 @@ vector<string> DiscoVirtual::parsePath(char* path){
 }
 
 vector<fileEntry> DiscoVirtual::ls(char *path){
-    Folder *f = new Folder( 1, this->archivo );
+    Folder *f = new Folder( 1, archivo );
     vector<string> p = this->parsePath( path );
     const char* current;
     vector<string>::iterator pi = p.begin();
     string pi2 = *pi;
     current = pi2.c_str();
-    for( vector<fileEntry>::iterator i = f->dir->begin(); i != f->dir->end(); ++i ){
+    vector<fileEntry>::iterator i = f->dir->begin();
+    while( i != f->dir->end() ){
         fileEntry fe = *i;
         if( fe.isFolder == 1 && strcmp( current, fe.nombre ) == 0 ){
             f = new Folder( fe.firstBlock, this->archivo );
             i = f->dir->begin();
+
             ++pi;
-            pi2 = *pi;
-            current = pi2.c_str();
+            if( pi == p.end()){
+                break;
+            }else{
+                pi2 = *pi;
+                current = pi2.c_str();
+            }
+        }else{
+            ++i;
         }
         if( pi == p.end() ){
             break;
@@ -76,10 +84,15 @@ void DiscoVirtual::CreateFile( char* path, char* name, int isFolder ){
     if( dir != NULL ){
 
         int block_index = this->mb->GetFreeBlock();
-        Folder *f = new Folder( dir->firstBlock, this->archivo );
+        int b =  dir->firstBlock;
+        Archivo* arch = this->archivo;
+        Folder *f = new Folder( b, arch );
         fileEntry *nuevo = new fileEntry( name, block_index, block_index, isFolder, 1 );
         f->dir->push_back( *nuevo );
         f->saveFolder();
+        this->mb->nextBlock += 1;
+        this->mb->blockCount += 1;
+        this->mb->guardar();
     }
 }
 
@@ -93,7 +106,7 @@ void DiscoVirtual::CreateFile( char* path, char* name, int isFolder ){
 //}
 
 fileEntry* DiscoVirtual::getDir( char* path ){
-    Folder *f = new Folder( 1, this->archivo );// no carga root!!
+    Folder *f = new Folder( 1, this->archivo );
     fileEntry root = f->dir->at( 0 );
     vector<string> p = this->parsePath( path );
     const char* current;
@@ -106,10 +119,12 @@ fileEntry* DiscoVirtual::getDir( char* path ){
             f = new Folder( fe.firstBlock, this->archivo );
             i = f->dir->begin();
             ++pi;
-            pi2 = *pi;
-            current = pi2.c_str();
+
             if( pi == p.end() ){
                 return &fe;
+            }else{
+                pi2 = *pi;
+                current = pi2.c_str();
             }
         }
     }

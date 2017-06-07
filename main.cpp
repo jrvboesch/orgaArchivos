@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     do{
         cout << " Menu " << endl;
         cout << "-$  ";
-        cin >> command;
+//        cin >> command;
         cmd->cmd( "new folder hola /" );
     }while( strcmp( command, "exit" ) != 0 );
 //    Archivo *archivo = new Archivo("test.oa");
