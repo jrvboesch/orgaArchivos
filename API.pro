@@ -17,7 +17,9 @@ SOURCES += main.cpp \
     bloque.cpp \
     FileEntry.cpp \
     folder.cpp \
-    shell.cpp
+    shell.cpp \
+    hashentry.cpp \
+    hashtable.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -38,4 +40,6 @@ HEADERS += \
     api.h \
     bloque.h \
     folder.h \
-    shell.h
+    shell.h \
+    hashentry.h \
+    hashtable.h

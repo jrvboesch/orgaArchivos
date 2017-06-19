@@ -10,8 +10,8 @@ void shell::cmd( char *command ){
     char* accion = "ls";
 //    char* opt1 = strtok(NULL, " ");
     char* opt1 = "root";
-    char* opt2 = "carpeta2";
-    char* opt3 = "root";
+    char* opt2 = "archivo1_1.txt";
+    char* opt3 = "root/carpeta1";
     if( strcmp( accion, "new" ) == 0 ){
         if( strcmp( opt1, "folder" ) == 0 ){
             this->dv->CreateFile( opt3, opt2, 1 );

@@ -5,7 +5,7 @@ MasterBlock::MasterBlock( Archivo *archivo, int blockSize ) {
     this->archivo = archivo;
     this->blockCount = 0;
     this->First_block = 1;
-    this->nextBlock = 3;
+    this->nextBlock = 4;
 }
 
 void MasterBlock::cargar() {
